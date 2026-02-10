@@ -1,31 +1,23 @@
 class Solution {
 public:
     int trap(vector<int>& height) {
-        int l=0;
-        int r=height.size()-1;
-        int leftMax=0;
-        int rightMax=0;
         int sum=0;
-        while(l<=r){
-            if(height[l]<=height[r]){
-                if(height[l]>leftMax){
-                    leftMax=height[l];
+        int n=height.size();
+        vector<int> st;
+        for(int i=0;i<n;i++){
+            while(!st.empty() && height[st.back()]<height[i]){
+                int bottom=st.back();
+                st.pop_back();
+                if(st.empty()){
+                    break;
                 }
-                else{
-                    sum+=leftMax-height[l];
-                }
-                l++;
-            }       
-            else{
-                if(height[r]>rightMax){
-                    rightMax=height[r];
-                }
-                else{
-                    sum+=rightMax-height[r];
-                }
-                r--;
-            }                        
+                int left=st.back();
+                int width=i-left-1;
+                int boundedHeight=min(height[left],height[i])-height[bottom];
+                sum+=boundedHeight*width;
+            }
+            st.push_back(i);
         }    
-        return sum;
+        return sum;   
     }
 };
