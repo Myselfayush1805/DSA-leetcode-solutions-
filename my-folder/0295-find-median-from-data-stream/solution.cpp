@@ -1,19 +1,25 @@
 class MedianFinder {
 public:
+priority_queue<int> left;
+priority_queue<int,vector<int>,greater<int>> right;
 vector<int>nums;
     MedianFinder() {
         
     }
     
     void addNum(int num) {
-        auto it=lower_bound(nums.begin(),nums.end(),num);
-        nums.insert(it,num);       
+        left.push(num);
+        right.push(left.top());
+        left.pop();
+        if(left.size()<right.size()){
+            left.push(right.top());
+            right.pop();
+        }
     }
     
     double findMedian() {
-        int n=nums.size();
-        if(n%2==1) return nums[n/2];
-        else return (nums[n/2-1]+nums[n/2])/2.0;                
+        if(left.size()>right.size()) return left.top();
+        else return(left.top()+right.top())/2.0;             
     }
 };
 
