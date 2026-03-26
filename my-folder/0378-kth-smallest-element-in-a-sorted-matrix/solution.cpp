@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int kthSmallest(vector<vector<int>>& matrix, int k) { 
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
         int n=matrix.size();
         priority_queue<tuple<int,int,int>,vector<tuple<int,int,int>>,greater<tuple<int,int,int>>> pq;
         for(int i=0;i<n;i++){
