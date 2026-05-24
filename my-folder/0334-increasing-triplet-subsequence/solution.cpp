@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        int smallest=INT_MAX;
+        int smaller=INT_MAX;
+        for(int n:nums){
+            if(n<=smallest) smallest=n;
+            else if(n<=smaller) smaller=n;
+            else return true;
+        }
+        return false;
+    }
+};
