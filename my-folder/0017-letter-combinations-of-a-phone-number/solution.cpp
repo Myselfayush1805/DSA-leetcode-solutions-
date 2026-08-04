@@ -17,8 +17,8 @@ private:
         char curr=digits[i];
         int idx=curr-'0';
         string letters=key[idx];       
-        for(int j=0;j<letters.size();j++){
-            s.push_back(letters[j]);
+        for(char c:letters){
+            s.push_back(c);
             backtrack(i+1,s,digits,res);
             s.pop_back();
         }
