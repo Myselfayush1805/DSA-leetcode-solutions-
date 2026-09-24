@@ -12,21 +12,18 @@
 class Solution {
 public:
     TreeNode* increasingBST(TreeNode* root) {
-        vector<int> temp;
-        dfs(temp,root);
         TreeNode* dummy=new TreeNode(0);
-        TreeNode* curr=dummy;
-        for(int i=0;i<temp.size();i++){
-            curr->right=new TreeNode(temp[i]);
-            curr=curr->right;
-        }
-        return dummy->right;   
+        TreeNode* prev=dummy;
+        dfs(prev,root);
+        return dummy->right;
     }
 private:
-    void dfs(vector<int>& temp, TreeNode* root) {
+    void dfs(TreeNode*& prev, TreeNode* root) {
         if(!root) return;
-        dfs(temp,root->left);
-        temp.push_back(root->val);
-        dfs(temp,root->right);
+        dfs(prev,root->left);
+        root->left=NULL;
+        prev->right=root;
+        prev=root;
+        dfs(prev,root->right);
     }
 };
